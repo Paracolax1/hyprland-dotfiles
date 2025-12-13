@@ -34,7 +34,7 @@ PKGS=(
     git base-devel
     hyprland waybar wofi swaybg swww
     pipewire pipewire-pulse pipewire-alsa wireplumber
-    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-hyprland xdg-desktop-portal xdg-desktop-portal-wlr
     networkmanager network-manager-applet
     alacritty kitty foot
     dunst mako
@@ -49,6 +49,7 @@ PKGS=(
     mesa
     vulkan-intel intel-media-driver
     libva libva-intel-driver libva-utils
+    ttf-material-symbols-variable
 )
 
 
@@ -103,7 +104,7 @@ cd "$DOTFILES_DIR"
 
 # Use rsync to copy so we don’t overwrite unknown configs
 rsync -a --info=progress2 \
-  --exclude ".git" --exclude "scripts" \
+  --exclude ".git" \
   ./ "$CONFIG_DIR/"
 
 ################################################################
@@ -116,13 +117,14 @@ fi
 
 info "[INFO] Installing SF Pro & SF Mono fonts..."
 "$DOTFILES_DIR/scripts/utils/install-sf-fonts.sh"
+fc-cache -fv
 
 ################################################################
 # 6) OPTIONAL: GTK/THEME SUPPORT
 ################################################################
 info "Installing GTK themes and icons (optional)"
 
-AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme)
+AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync)
 for pkg in "${AUR_PKGS[@]}"; do
     if ! paru -Q "$pkg" &>/dev/null; then
         paru -S --noconfirm "$pkg"
