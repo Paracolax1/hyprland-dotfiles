@@ -54,7 +54,7 @@ PKGS=(
     bottom
     bluez bluez-utils
     brightnessctl libnotify glib2 dconf
-    pactl imagemagick
+    imagemagick
 )
 
 
