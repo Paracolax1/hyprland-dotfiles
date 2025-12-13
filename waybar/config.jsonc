@@ -162,14 +162,14 @@
   //   }
   // },
 
-  "custom/updates": {
-    "format": "<span size='14pt' font='Material Symbols Outlined'>package</span>",
-    "escape": true,
-    "return-type": "json",
-    "exec": "~/.config/scripts/system/package-updates.sh",
-    "interval": 1800,
-    "on-click": "alacritty -e yay -Syu --noconfirm"
-  },
+//   "custom/updates": {
+//     "format": "<span size='14pt' font='Material Symbols Outlined'>package</span>",
+//     "escape": true,
+//     "return-type": "json",
+//     "exec": "~/.config/scripts/system/package-updates.sh",
+//     "interval": 1800,
+//     "on-click": "alacritty -e yay -Syu --noconfirm"
+//   },
   "network": {
     "format-icons": {
       "wifi": [
