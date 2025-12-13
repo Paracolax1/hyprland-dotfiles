@@ -53,8 +53,8 @@ PKGS=(
     ttf-material-symbols-variable
     bottom
     bluez bluez-utils
-    brightnessctl notify-send wallust hyprctl gsettings
-    pactl imagemagick checkupdate-with-aur
+    brightnessctl libnotify glib2 dconf
+    pactl imagemagick
 )
 
 
@@ -132,7 +132,7 @@ fc-cache -fv
 ################################################################
 info "Installing GTK themes and icons (optional)"
 
-AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync bottom)
+AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync bottom wallust-git yay)
 for pkg in "${AUR_PKGS[@]}"; do
     if ! paru -Q "$pkg" &>/dev/null; then
         paru -S --noconfirm "$pkg"
