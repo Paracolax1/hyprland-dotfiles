@@ -132,7 +132,15 @@ fc-cache -fv
 ################################################################
 info "Installing GTK themes and icons (optional)"
 
-AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync bottom wallust-git yay)
+AUR_PKGS=(
+    qogir-icon-theme-git
+    materia-gtk-theme
+    swaync bottom
+    wallust-git
+    yay
+    ttf-nerd-fonts-symbols
+)
+
 for pkg in "${AUR_PKGS[@]}"; do
     if ! paru -Q "$pkg" &>/dev/null; then
         paru -S --noconfirm "$pkg"
