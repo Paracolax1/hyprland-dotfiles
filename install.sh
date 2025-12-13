@@ -144,10 +144,10 @@ AUR_PKGS=(
 )
 
 for pkg in "${AUR_PKGS[@]}"; do
-    if ! paru -Q "$pkg" &>/dev/null; then
-        paru -S --noconfirm "$pkg"
+    if ! yay -Q "$pkg" &>/dev/null; then
+        yay -S --noconfirm "$pkg"
     else
-        echo "[INFO] $pkg is already installed (AUR)"
+        yay "[INFO] $pkg is already installed (YAY)"
     fi
 done
 
