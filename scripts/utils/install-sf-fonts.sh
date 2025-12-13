@@ -1,34 +1,60 @@
 #!/usr/bin/env bash
 #
-# install-sf-fonts.sh — Install SF Pro & SF Mono fonts
-# (pulls from a publicly mirrored GitHub repo)
+# install-sf-fonts.sh — Install or update SF Pro & SF Mono fonts
+# Efficient, idempotent, no repeated cloning
 #
-# USAGE:
-#   chmod +x install-sf-fonts.sh
-#   ./install-sf-fonts.sh
 
 set -euo pipefail
 
-FONT_DIR="$HOME/.local/share/fonts/SF-Pro"
 REPO="https://github.com/sahibjotsaggu/San-Francisco-Pro-Fonts.git"
+CACHE_DIR="$HOME/.cache/sf-fonts"
+FONT_DIR="$HOME/.local/share/fonts/SF-Pro"
 
-echo "[INFO] Installing SF Pro & SF Mono fonts..."
+echo "[INFO] Checking SF Pro & SF Mono fonts..."
 
-# Create local font directory
-mkdir -p "$FONT_DIR"
+# Ensure required commands exist
+for cmd in git fc-cache; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "[ERROR] Required command not found: $cmd"
+    exit 1
+  }
+done
 
-# Clone the repository (temp)
-TMPDIR="$(mktemp -d)"
-git clone "$REPO" "$TMPDIR"
+# Clone once
+if [[ ! -d "$CACHE_DIR/.git" ]]; then
+  echo "[INFO] Cloning SF fonts repository (one-time)..."
+  mkdir -p "$(dirname "$CACHE_DIR")"
+  git clone --depth=1 "$REPO" "$CACHE_DIR"
+else
+  echo "[INFO] Updating SF fonts repository..."
+  git -C "$CACHE_DIR" fetch --quiet
+fi
 
-echo "[INFO] Copying font files..."
-find "$TMPDIR" -type f \( -iname "*.ttf" -o -iname "*.otf" \) -exec cp {} "$FONT_DIR"/ \;
+# Check if there are updates
+LOCAL_HASH="$(git -C "$CACHE_DIR" rev-parse HEAD)"
+REMOTE_HASH="$(git -C "$CACHE_DIR" rev-parse @{u} 2>/dev/null || echo "$LOCAL_HASH")"
 
-echo "[INFO] Cleaning up..."
-rm -rf "$TMPDIR"
+if [[ "$LOCAL_HASH" != "$REMOTE_HASH" ]]; then
+  echo "[INFO] New fonts available, pulling updates..."
+  git -C "$CACHE_DIR" pull --quiet
+  UPDATED=true
+else
+  UPDATED=false
+fi
 
-echo "[INFO] Rebuilding font cache..."
-fc-cache -fv "$FONT_DIR"
+# Install fonts only if missing or updated
+if [[ ! -d "$FONT_DIR" || "$UPDATED" == true ]]; then
+  echo "[INFO] Installing font files..."
+  mkdir -p "$FONT_DIR"
 
-echo "[DONE] SF Pro & SF Mono fonts installed to $FONT_DIR"
-echo "You can now set them via fc-list or in your Hyprland variables.conf file."
+  find "$CACHE_DIR" -type f \
+    \( -iname "*.ttf" -o -iname "*.otf" \) \
+    -exec cp -f {} "$FONT_DIR"/ \;
+
+  echo "[INFO] Rebuilding font cache..."
+  fc-cache -f "$FONT_DIR"
+else
+  echo "[INFO] Fonts already installed and up to date."
+fi
+
+echo "[DONE] SF Pro & SF Mono fonts are ready."
