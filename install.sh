@@ -104,7 +104,7 @@ fi
 # 6) OPTIONAL: GTK/THEME SUPPORT
 ################################################################
 info "Installing GTK themes and icons (optional)"
-paru -S --noconfirm materia-gtk-theme qogir-icon-theme
+paru -S --noconfirm materia-gtk-theme qogir-icon-theme-git
 
 ################################################################
 # 7) SUMMARY & POST-INSTALL
