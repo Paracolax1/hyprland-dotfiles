@@ -72,7 +72,8 @@ else
     echo "[INFO] All packages already installed"
 fi
 
-systemctl --user enable --now pipewire pipewire-pulse wireplumber bluetooth
+systemctl --user enable --now pipewire pipewire-pulse wireplumber
+sudo systemctl enable --now bluetooth
 
 ################################################################
 # 2) INSTALL AUR HELPER (paru)
