@@ -42,7 +42,7 @@ PKGS=(
     neovim starship
     pavucontrol playerctl
     wl-clipboard grim slurp
-    polkit polkit-kde-agent
+    polkit polkit-kde-agent polkit-gnome
     python-pydbus
     rofi
     jq
@@ -55,6 +55,9 @@ PKGS=(
     bluez bluez-utils
     brightnessctl libnotify glib2 dconf
     imagemagick pacman-contrib
+    fastfetch yazi qt5-wayland qt6-wayland ffmpeg
+    unzip gtklock zathura zathura-pdf-mupdf
+    ttf-jetbrains-mono-nerd curl
 )
 
 
