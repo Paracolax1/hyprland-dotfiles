@@ -54,7 +54,7 @@ PKGS=(
     bottom
     bluez bluez-utils
     brightnessctl libnotify glib2 dconf
-    imagemagick
+    imagemagick pacman-contrib
 )
 
 
@@ -138,6 +138,8 @@ AUR_PKGS=(
     swaync bottom
     wallust-git
     yay
+    vicinae-bin
+    dust eza thunar minizip
     ttf-nerd-fonts-symbols
 )
 
