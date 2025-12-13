@@ -41,10 +41,9 @@ sudo pacman -S --noconfirm \
   neovim starship \
   pavucontrol playerctl \
   wl-clipboard grim slurp \
-  picom picom-alsa \
-  polkit-kde-agent \
+  polkit polkit-kde-agent \
+  python-pydbus \
   rofi \
-  python-polkit \
   jq
 
 info "Enabling NetworkManager service"
