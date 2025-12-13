@@ -30,29 +30,43 @@ warn()  { printf "%b[WARN]  %s%b\n"  "$YELLOW" "$1" "$RESET"; }
 info "Updating system packages..."
 sudo pacman -Syu --noconfirm
 
-info "Installing essential packages..."
-sudo pacman -S --noconfirm \
-  git base-devel \
-  hyprland waybar wofi swaybg swww \
-  pipewire pipewire-pulse pipewire-alsa xdg-desktop-portal-hyprland \
-  networkmanager network-manager-applet \
-  alacritty kitty foot \
-  dunst mako \
-  neovim starship \
-  pavucontrol playerctl \
-  wl-clipboard grim slurp \
-  polkit polkit-kde-agent \
-  python-pydbus \
-  rofi \
-  jq rsync
-
-sudo pacman -S --noconfirm \
-    mesa \
-    vulkan-intel intel-media-driver \
+PKGS=(
+    git base-devel
+    hyprland waybar wofi swaybg swww
+    pipewire pipewire-pulse pipewire-alsa wireplumber
+    xdg-desktop-portal-hyprland
+    networkmanager network-manager-applet
+    alacritty kitty foot
+    dunst mako
+    neovim starship
+    pavucontrol playerctl
+    wl-clipboard grim slurp
+    polkit polkit-kde-agent
+    python-pydbus
+    rofi
+    jq
+    rsync
+    mesa
+    vulkan-intel intel-media-driver
     libva libva-intel-driver libva-utils
+)
 
-info "Enabling NetworkManager service"
-sudo systemctl enable --now NetworkManager.service
+
+info "Installing essential packages..."
+# Find packages that are not yet installed
+MISSING_PKGS=()
+for pkg in "${PKGS[@]}"; do
+    if ! pacman -Qq "$pkg" &>/dev/null; then
+        MISSING_PKGS+=("$pkg")
+    fi
+done
+
+# Install missing packages in one command
+if [ ${#MISSING_PKGS[@]} -ne 0 ]; then
+    sudo pacman -S --noconfirm "${MISSING_PKGS[@]}"
+else
+    echo "[INFO] All packages already installed"
+fi
 
 ################################################################
 # 2) INSTALL AUR HELPER (paru)
@@ -104,7 +118,15 @@ fi
 # 6) OPTIONAL: GTK/THEME SUPPORT
 ################################################################
 info "Installing GTK themes and icons (optional)"
-paru -S --noconfirm materia-gtk-theme qogir-icon-theme-git
+
+AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme)
+for pkg in "${AUR_PKGS[@]}"; do
+    if ! paru -Q "$pkg" &>/dev/null; then
+        paru -S --noconfirm "$pkg"
+    else
+        echo "[INFO] $pkg is already installed (AUR)"
+    fi
+done
 
 ################################################################
 # 7) SUMMARY & POST-INSTALL
