@@ -78,17 +78,17 @@ systemctl --user enable --now pipewire pipewire-pulse wireplumber
 sudo systemctl enable --now bluetooth
 
 ################################################################
-# 2) INSTALL AUR HELPER (paru)
+# 2) INSTALL AUR HELPER (yay)
 ################################################################
-if ! command -v paru &> /dev/null; then
-  info "Installing AUR helper (paru)..."
+if ! command -v yay &> /dev/null; then
+  info "Installing AUR helper (yay)..."
   cd /tmp
-  git clone https://aur.archlinux.org/paru.git
-  cd paru
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
   makepkg -si --noconfirm
   cd -
 else
-  info "AUR helper (paru) already installed"
+  info "AUR helper (yay) already installed"
 fi
 
 ################################################################
