@@ -53,6 +53,8 @@ PKGS=(
     ttf-material-symbols-variable
     bottom
     bluez bluez-utils
+    brightnessctl notify-send wallust hyprctl gsettings
+    pactl imagemagick checkupdate-with-aur
 )
 
 
