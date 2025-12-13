@@ -44,7 +44,12 @@ sudo pacman -S --noconfirm \
   polkit polkit-kde-agent \
   python-pydbus \
   rofi \
-  jq
+  jq rsync
+
+sudo pacman -S --noconfirm \
+    mesa \
+    vulkan-intel intel-media-driver \
+    libva libva-intel-driver libva-utils
 
 info "Enabling NetworkManager service"
 sudo systemctl enable --now NetworkManager.service
