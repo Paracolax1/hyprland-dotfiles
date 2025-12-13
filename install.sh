@@ -34,6 +34,7 @@ PKGS=(
     git base-devel
     hyprland waybar wofi swaybg swww
     pipewire pipewire-pulse pipewire-alsa wireplumber
+    # pulseaudio pulseaudio-alsa
     xdg-desktop-portal-hyprland xdg-desktop-portal xdg-desktop-portal-wlr
     networkmanager network-manager-applet
     alacritty kitty foot
@@ -50,6 +51,8 @@ PKGS=(
     vulkan-intel intel-media-driver
     libva libva-intel-driver libva-utils
     ttf-material-symbols-variable
+    bottom
+    bluez bluez-utils
 )
 
 
@@ -68,6 +71,8 @@ if [ ${#MISSING_PKGS[@]} -ne 0 ]; then
 else
     echo "[INFO] All packages already installed"
 fi
+
+systemctl --user enable --now pipewire pipewire-pulse wireplumber bluetooth
 
 ################################################################
 # 2) INSTALL AUR HELPER (paru)
@@ -124,7 +129,7 @@ fc-cache -fv
 ################################################################
 info "Installing GTK themes and icons (optional)"
 
-AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync)
+AUR_PKGS=(qogir-icon-theme-git materia-gtk-theme swaync bottom)
 for pkg in "${AUR_PKGS[@]}"; do
     if ! paru -Q "$pkg" &>/dev/null; then
         paru -S --noconfirm "$pkg"
