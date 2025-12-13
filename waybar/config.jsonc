@@ -145,7 +145,7 @@
     ],
     "interval": 1,
     "tooltip": true,
-    "tooltip-format": "CPU Frequency: {avg_frequency} GHz",
+    "tooltip-format": "CPU Frequency: {usage} GHz",
     "on-click": "alacritty -e btm"
   },
   "custom/menu": {
