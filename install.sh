@@ -110,12 +110,12 @@ rsync -a --info=progress2 \
 # 5) MAKE SCRIPTS EXECUTABLE
 ################################################################
 info "Making custom scripts executable"
-if [ -d "$CONFIG_DIR/scripts" ]; then
-  find "$CONFIG_DIR/scripts" -type f -name "*.sh" -exec chmod +x {} \;
+if [ -d "$DOTFILES_DIR/scripts" ]; then
+  find "$DOTFILES_DIR/scripts" -type f -name "*.sh" -exec chmod +x {} \;
 fi
 
 info "[INFO] Installing SF Pro & SF Mono fonts..."
-"$CONFIG_DIR/scripts/utils/install-sf-fonts.sh"
+"$DOTFILES_DIR/scripts/utils/install-sf-fonts.sh"
 
 ################################################################
 # 6) OPTIONAL: GTK/THEME SUPPORT
