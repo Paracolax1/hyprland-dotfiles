@@ -154,6 +154,10 @@ for pkg in "${AUR_PKGS[@]}"; do
     fi
 done
 
+info "Installing Colloid Icons"
+local icons_dir
+icons_dir="$(mktemp -d)"
+
 ################################################################
 # 7) SUMMARY & POST-INSTALL
 ################################################################
