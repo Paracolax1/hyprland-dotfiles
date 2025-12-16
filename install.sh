@@ -235,7 +235,7 @@ install_yay() {
     local tmp_build_dir
 
     info "yay not in official repos, building from AUR..."
-    tmp_build_dir="($mktemp -d)"
+    tmp_build_dir="$(mktemp -d)"
 
     if [[ ! -d "${tmp_build_dir}" ]]; then
         fatal "Failed to create temporary directory for yay build"
