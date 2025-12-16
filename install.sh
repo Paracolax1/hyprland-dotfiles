@@ -10,7 +10,7 @@
 set -euo pipefail
 
 ### CONFIGURATION
-readonly DOTFILES_REPO ="https://github.com/Paracolax1/hyprland-dotfiles.git"
+readonly DOTFILES_REPO="https://github.com/Paracolax1/hyprland-dotfiles.git"
 readonly DOTFILES_DIR="$HOME/.local/share/hyprland-dotfiles"
 readonly CONFIG_DIR="$HOME/.config"
 
@@ -48,7 +48,7 @@ readonly PACMAN_PACKAGES=(
     #### DESKTOP
     waybar  # Customizable taskbar
     wofi    # Program launcher
-    sww     # Wallpaper manager
+    swww     # Wallpaper manager
     dunst   # Run custom scripts on notifications
     gtklock # Lockscreen
 
@@ -272,7 +272,7 @@ install_pacman_packages() {
 }
 
 install_aur_packages() {
-  info "Installing AUR packages using ${AUR_HELPER}..."
+  info "Installing AUR packages using yay..."
   info "This may take several minutes..."
   
   if yay -S --needed --noconfirm "${AUR_PACKAGES[@]}"; then
@@ -489,10 +489,11 @@ install_icon_themes() {
 
 install_fonts() {
     info "Installing SF Pro & SF Mono fonts..."
-    if exec "$DOTFILES_DIR/scripts/utils/install-sf-fonts.sh"; then
+    if "$DOTFILES_DIR/scripts/utils/install-sf-fonts.sh"; then
         msg "Installed SF Pro & SF Mono Fonts successfully"
     else
         error "Failed to install SF Pro & SF Mono fonts. Continuing."
+    fi
 
     info "Refreshing font cache"
     if ! fc-cache -fv; then
@@ -524,7 +525,7 @@ clone_or_update_dotfiles() {
         else
             msg "Dotfiles updated successfully."
         fi
-    elif [[ -d "${DOTFILES_DIR}"]]; then
+    elif [[ -d "${DOTFILES_DIR}" ]]; then
         warn "Dotfiles directory exists but is not a git repository"
         rm -rf "${DOTDIR}"
         clone_dotfiles
@@ -607,7 +608,7 @@ enable_systemd_services() {
     msg "Systemd services enabled"
 }
 
-reate_gtklock_service() {
+create_gtklock_service() {
   local service_dir="$1"
 
   if ! verify_binary gtklock; then
