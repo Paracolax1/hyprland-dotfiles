@@ -769,6 +769,8 @@ main() {
     cp -f ~/.config/bash/bashrc ~/.bashrc
     source ~/.bashrc
     hyprpm update
+    hyprpm add https://github.com/hyprwm/hyprland-plugins
+    hyprpm enable hyprexpo
     waytrogen -r
     ~/.config/scripts/theme/theme-sync.sh
 
