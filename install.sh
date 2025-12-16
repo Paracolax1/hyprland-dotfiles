@@ -109,6 +109,9 @@ readonly PACMAN_PACKAGES=(
     gtkmm-4.0
     pcsclite
     libcanberra
+    gnome-disk-utility
+    docker
+    docker-compose
 
 
     # hyprland waybar wofi swaybg swww
@@ -165,6 +168,11 @@ readonly FLATPAK_APPS=(
     com.github.tchx84.Flatseal
     com.discordapp.Discord
     com.spotify.Client
+    com.obsproject.Studio
+    org.videolan.VLC
+    com.valvesoftware.Steam
+    org.audacityteam.Audacity
+    org.mozilla.firefox
 )
 
 TMP_BUILD_DIR=""
