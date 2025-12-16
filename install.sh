@@ -152,6 +152,13 @@ readonly AUR_PACKAGES=(
     visual-studio-code-bin
 )
 
+readonly FLATPAK_APPS=(
+    com.google.Chrome
+    com.github.tchx84.Flatseal
+    com.discordapp.Discord
+    com.spotify.Client
+)
+
 TMP_BUILD_DIR=""
 
 ### HELPER FUNCTIONS
@@ -773,23 +780,29 @@ EOF
 }
 
 install_flatpak_apps() {
-    info "Installing flatpak apps"
+    info "Installing Flatpak apps"
+
     local flathub_repo="https://flathub.org/repo/flathub.flatpakrepo"
-    
-    if sudo flatpak remote-add --if-not-exists flathub $flathub_repo; then
-        msg "Installed flathub repo successfully"
+
+    # Add Flathub repo if not already added
+    if sudo flatpak remote-add --if-not-exists flathub "$flathub_repo"; then
+        msg "Installed Flathub repo successfully"
     else
-        fatal "Failed to install flathub repo to flatpak"
+        fatal "Failed to install Flathub repo to Flatpak"
     fi
 
-    if flatpak install -y --or-update flathub com.google.Chrome && flatpak install -y --or-update flathub com.github.tchx84.Flatseal; then
-        msg "Installed flatpak apps successfully (chrome, flatseal)"
-    else
-        error "Failed to install flatpak apps, ignoring"
-    fi
+    # Install each app from the list
+    for app in "${FLATPAK_APPS[@]}"; do
+        if flatpak install -y --or-update flathub "$app"; then
+            msg "Installed $app successfully"
+        else
+            error "Failed to install $app, continuing with next app"
+        fi
+    done
 
-    msg "Installed flatpak apps"
+    msg "Installed all Flatpak apps"
 }
+
 
 main() {
     info "Pre-flight system checks"
