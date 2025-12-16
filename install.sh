@@ -128,7 +128,7 @@ readonly PACMAN_PACKAGES=(
     # ttf-jetbrains-mono-nerd curl
 )
 
-readonly AUR_PKGS=(
+readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     swaync          # Sway notification center
     wallust-git     # Color palette maker
