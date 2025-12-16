@@ -235,10 +235,16 @@ update_system() {
 
 install_base_tools() {
   info "Installing base development tools..."
-  if sudo pacman -S --needed --noconfirm git base-devel curl rsync; then
+  if sudo pacman -S --needed --noconfirm git base-devel curl rsync rustup; then
     msg "Base tools installed."
   else
     fatal "Failed to install base development tools."
+  fi
+
+  if rustup default stable; then
+    msg "Installed rustup successfully"
+  else
+    fatal "Failed to install rustup"
   fi
 }
 
