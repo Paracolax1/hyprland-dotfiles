@@ -4,7 +4,7 @@
 
 [miscellaneous]
 
-path=/home/saatvik333/Music
+path=~/Music
 version=3.4.1
 allowNotifications=1
 hideLogo=1
