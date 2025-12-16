@@ -102,6 +102,8 @@ readonly PACMAN_PACKAGES=(
     thefuck
     cpio
     cmake
+    flatpak
+    gnome-software
 
 
     # hyprland waybar wofi swaybg swww
@@ -138,7 +140,6 @@ readonly AUR_PACKAGES=(
     wallust-git     # Color palette maker
     vicinae-bin     # Application launcher
     dust            # CLI disk usage overview
-    eza             # Modern ls alternative
     thunar          # GUI file manager
     minizip         # Zips files
     nerd-fonts  # Nerd fonts
@@ -148,6 +149,7 @@ readonly AUR_PACKAGES=(
     hyprswitch
     bongocat
     wlogout
+    vscodium
 )
 
 TMP_BUILD_DIR=""
@@ -745,6 +747,44 @@ install_hypr_plugins() {
     fi
 }
 
+configure_waytrogen() {
+    local config_path="$HOME/.local/share/applications"
+    
+    if ! mkdir -p $config_path; then
+        fatal "Failed to make user applications folder"
+    fi
+
+    cat > $"{config_path}/waytrogen.desktop" <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Exec=waytrogen -e $HOME/.config/scripts/theme/theme-sync.sh
+Name=Waytrogen
+Icon=waytrogen
+EOF
+}
+
+install_flatpak_apps() {
+    info "Installing flatpak apps"
+    local flathub_repo="https://flathub.org/repo/flathub.flatpakrepo"
+    
+    if sudo flatpak remote-add --if-not-exists flathub $flathub_repo; then
+        msg "Installed flathub repo successfully"
+    else
+        fatal "Failed to install flathub repo to flatpak"
+    fi
+
+    if flatpak install -y --or-update flathub com.google.Chrome && flatpak install -y --or-update flathub com.github.tchx84.Flatseal; then
+        msg "Installed flatpak apps successfully (chrome, flatseal)"
+    else
+        error "Failed to install flatpak apps, ignoring"
+    fi
+
+    msg "Installed flatpak apps"
+}
+
 main() {
     info "Pre-flight system checks"
     check_not_root
@@ -802,6 +842,14 @@ main() {
     info "Installing hyprland plugins"
     install_hypr_plugins
     msg "Installed hyprland plugins successfully"
+
+    info "Configure Waytrogen"
+    configure_waytrogen
+    msg "Configured Waytrogen successfully"
+
+    info "Install flatpak apps"
+    install_flatpak_apps
+    msg "Installed flatpak apps successfully"
 
     info "Refreshing wallpaper and themes"
     waytrogen -r
