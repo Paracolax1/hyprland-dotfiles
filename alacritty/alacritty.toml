@@ -11,33 +11,11 @@ opacity = 0.9
 decorations = "none"
 
 [font]
-# Primary font family
-family = "Liga SFMono Nerd Font"
-# Enable ligatures
-ligatures = true
-# Pixel size (adjust as needed)
-size = 14.0
+size = 12
 
+# NOTE: alacritty doesn't support ligatures, just using this since it's my preferred font with nerdfonts.
 [font.normal]
 family = "Liga SFMono Nerd Font"
-style = "Regular"
-
-[font.bold]
-family = "Liga SFMono Nerd Font"
-style = "Bold"
-
-[font.italic]
-family = "Liga SFMono Nerd Font"
-style = "Italic"
-
-[font.bold_italic]
-family = "Liga SFMono Nerd Font"
-style = "Bold Italic"
-
-# Optional fallback for Nerd Font glyphs/icons
-[[font.fallback]]
-family = "FiraCode Nerd Font"
-
 
 [scrolling]
 multiplier = 6
