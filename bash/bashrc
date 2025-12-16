@@ -5,7 +5,7 @@
 export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 export STARSHIP_CACHE=~/.starship/cache
 eval "$(starship init bash)"
-if ! [[ $- == *i* ]]; then
+if [[ $- == *i* ]]; then
     fastfetch
 fi
 
