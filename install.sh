@@ -283,100 +283,146 @@ install_aur_packages() {
 }
 
 install_colloid_theme() {
-  local theme_dir
-  theme_dir="$(mktemp -d)"
-  
-  if [[ ! -d "${theme_dir}" ]]; then
-    warn "Failed to create temporary directory for Colloid theme"
+  local repo_url="https://github.com/vinceliuice/Colloid-gtk-theme"
+  local state_dir="$HOME/.local/state/colloid-theme"
+  local version_file="$state_dir/installed_commit"
+  local remote_commit theme_dir
+
+  mkdir -p "$state_dir"
+
+  info "Checking Colloid GTK theme version..."
+
+  remote_commit="$(git ls-remote "$repo_url" HEAD | awk '{print $1}')" || {
+    warn "Failed to check remote Colloid theme version"
+    return 1
+  }
+
+  if [[ -f "$version_file" ]] && [[ "$(cat "$version_file")" == "$remote_commit" ]]; then
+    info "Colloid GTK theme is already up to date."
+    return 0
+  fi
+
+  info "Updating Colloid GTK theme..."
+
+  theme_dir="$(mktemp -d)" || {
+    warn "Failed to create temporary directory"
+    return 1
+  }
+
+  if ! git clone --depth=1 "$repo_url" "$theme_dir"; then
+    rm -rf "$theme_dir"
+    warn "Failed to clone Colloid theme repository"
     return 1
   fi
-  
-  info "Installing Colloid GTK theme..."
-  info "Cloning Colloid theme repository (this may take a moment)..."
-  
-  if ! git clone --depth=1 https://github.com/vinceliuice/Colloid-gtk-theme "${theme_dir}"; then
-    rm -rf "${theme_dir}"
-    warn "Failed to clone Colloid theme repository."
+
+  if ! (cd "$theme_dir" && ./install.sh --libadwaita --tweaks all rimless); then
+    rm -rf "$theme_dir"
+    warn "Failed to install Colloid theme (default variant)"
     return 1
   fi
-  
-  info "Installing Colloid theme variants..."
-  if ! (cd "${theme_dir}" && ./install.sh --libadwaita --tweaks all rimless); then
-    rm -rf "${theme_dir}"
-    warn "Failed to install Colloid theme (default variant)."
+
+  if ! (cd "$theme_dir" && ./install.sh --libadwaita --theme grey --tweaks black rimless); then
+    rm -rf "$theme_dir"
+    warn "Failed to install Colloid theme (grey-black variant)"
     return 1
   fi
-  
-  info "Installing Colloid theme (grey-black variant)..."
-  if ! (cd "${theme_dir}" && ./install.sh --libadwaita --theme grey --tweaks black rimless); then
-    rm -rf "${theme_dir}"
-    warn "Failed to install Colloid theme (grey-black variant)."
-    return 1
-  fi
-  
-  rm -rf "${theme_dir}"
-  msg "Colloid GTK theme installed successfully."
-  return 0
+
+  echo "$remote_commit" > "$version_file"
+  rm -rf "$theme_dir"
+
+  msg "Colloid GTK theme installed / updated successfully."
 }
 
+
 install_rosepine_theme() {
-  local theme_dir
-  theme_dir="$(mktemp -d)"
-  
-  if [[ ! -d "${theme_dir}" ]]; then
+  local repo_url="https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme"
+  local state_dir="$HOME/.local/state/rosepine-gtk-theme"
+  local version_file="$state_dir/installed_commit"
+  local remote_commit theme_dir
+
+  mkdir -p "$state_dir"
+
+  info "Checking Rose Pine GTK theme version..."
+
+  remote_commit="$(git ls-remote "$repo_url" HEAD | awk '{print $1}')" || {
+    warn "Failed to check remote Rose Pine theme version"
+    return 1
+  }
+
+  if [[ -f "$version_file" ]] && [[ "$(cat "$version_file")" == "$remote_commit" ]]; then
+    info "Rose Pine GTK theme is already up to date."
+    return 0
+  fi
+
+  info "Installing / updating Rose Pine GTK theme..."
+
+  theme_dir="$(mktemp -d)" || {
     warn "Failed to create temporary directory for Rose Pine theme"
     return 1
-  fi
-  
-  info "Installing Rose Pine GTK theme..."
-  info "Cloning Rose Pine theme repository (this may take a moment)..."
-  
-  if ! git clone --depth=1 https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme "${theme_dir}"; then
-    rm -rf "${theme_dir}"
+  }
+
+  if ! git clone --depth=1 "$repo_url" "$theme_dir"; then
+    rm -rf "$theme_dir"
     warn "Failed to clone Rose Pine theme repository."
     return 1
   fi
-  
-  info "Installing Rose Pine theme with moon variant..."
-  if ! (cd "${theme_dir}/themes" && ./install.sh --libadwaita --tweaks moon macos); then
-    rm -rf "${theme_dir}"
+
+  if ! (cd "$theme_dir/themes" && ./install.sh --libadwaita --tweaks moon macos); then
+    rm -rf "$theme_dir"
     warn "Failed to install Rose Pine theme."
     return 1
   fi
-  
-  rm -rf "${theme_dir}"
-  msg "Rose Pine GTK theme installed successfully."
-  return 0
+
+  echo "$remote_commit" > "$version_file"
+  rm -rf "$theme_dir"
+
+  msg "Rose Pine GTK theme installed / updated successfully."
 }
 
+
 install_osaka_theme() {
-  local theme_dir
-  theme_dir="$(mktemp -d)"
-  
-  if [[ ! -d "${theme_dir}" ]]; then
+  local repo_url="https://github.com/Fausto-Korpsvart/Osaka-GTK-Theme"
+  local state_dir="$HOME/.local/state/osaka-gtk-theme"
+  local version_file="$state_dir/installed_commit"
+  local remote_commit theme_dir
+
+  mkdir -p "$state_dir"
+
+  info "Checking Osaka GTK theme version..."
+
+  remote_commit="$(git ls-remote "$repo_url" HEAD | awk '{print $1}')" || {
+    warn "Failed to check remote Osaka theme version"
+    return 1
+  }
+
+  if [[ -f "$version_file" ]] && [[ "$(cat "$version_file")" == "$remote_commit" ]]; then
+    info "Osaka GTK theme is already up to date."
+    return 0
+  fi
+
+  info "Installing / updating Osaka GTK theme..."
+
+  theme_dir="$(mktemp -d)" || {
     warn "Failed to create temporary directory for Osaka theme"
     return 1
-  fi
-  
-  info "Installing Osaka GTK theme..."
-  info "Cloning Osaka theme repository (this may take a moment)..."
-  
-  if ! git clone --depth=1 https://github.com/Fausto-Korpsvart/Osaka-GTK-Theme "${theme_dir}"; then
-    rm -rf "${theme_dir}"
-    warn "Failed to clone Osaka theme repository after multiple attempts."
+  }
+
+  if ! git clone --depth=1 "$repo_url" "$theme_dir"; then
+    rm -rf "$theme_dir"
+    warn "Failed to clone Osaka theme repository."
     return 1
   fi
-  
-  info "Installing Osaka theme with solarized variant..."
-  if ! (cd "${theme_dir}/themes" && ./install.sh --libadwaita --tweaks solarized macos); then
-    rm -rf "${theme_dir}"
+
+  if ! (cd "$theme_dir/themes" && ./install.sh --libadwaita --tweaks solarized macos); then
+    rm -rf "$theme_dir"
     warn "Failed to install Osaka theme."
     return 1
   fi
-  
-  rm -rf "${theme_dir}"
-  msg "Osaka GTK theme installed successfully."
-  return 0
+
+  echo "$remote_commit" > "$version_file"
+  rm -rf "$theme_dir"
+
+  msg "Osaka GTK theme installed / updated successfully."
 }
 
 install_gtk_themes() {
@@ -425,33 +471,48 @@ install_gtk_themes() {
 }
 
 install_colloid_icons() {
-  local icons_dir
-  icons_dir="$(mktemp -d)"
-  
-  if [[ ! -d "${icons_dir}" ]]; then
+  local repo_url="https://github.com/vinceliuice/Colloid-icon-theme"
+  local state_dir="$HOME/.local/state/colloid-icon-theme"
+  local version_file="$state_dir/installed_commit"
+  local remote_commit icons_dir
+
+  mkdir -p "$state_dir"
+
+  info "Checking Colloid icon theme version..."
+
+  remote_commit="$(git ls-remote "$repo_url" HEAD | awk '{print $1}')" || {
+    warn "Failed to check remote Colloid icon theme version"
+    return 1
+  }
+
+  if [[ -f "$version_file" ]] && [[ "$(cat "$version_file")" == "$remote_commit" ]]; then
+    info "Colloid icon theme is already up to date."
+    return 0
+  fi
+
+  info "Installing / updating Colloid icon theme..."
+
+  icons_dir="$(mktemp -d)" || {
     warn "Failed to create temporary directory for Colloid icons"
     return 1
-  fi
-  
-  info "Installing Colloid icon theme..."
-  info "Cloning Colloid icon theme repository (this may take a moment)..."
-  
-  if ! git clone --depth=1 https://github.com/vinceliuice/Colloid-icon-theme "${icons_dir}"; then
-    rm -rf "${icons_dir}"
-    warn "Failed to clone Colloid icon theme repository after multiple attempts."
+  }
+
+  if ! git clone --depth=1 "$repo_url" "$icons_dir"; then
+    rm -rf "$icons_dir"
+    warn "Failed to clone Colloid icon theme repository."
     return 1
   fi
-  
-  info "Installing Colloid icon theme with all schemes (bold)..."
-  if ! (cd "${icons_dir}" && ./install.sh --scheme all --bold); then
-    rm -rf "${icons_dir}"
+
+  if ! (cd "$icons_dir" && ./install.sh --scheme all --bold); then
+    rm -rf "$icons_dir"
     warn "Failed to install Colloid icon theme."
     return 1
   fi
-  
-  rm -rf "${icons_dir}"
-  msg "Colloid icon theme installed successfully."
-  return 0
+
+  echo "$remote_commit" > "$version_file"
+  rm -rf "$icons_dir"
+
+  msg "Colloid icon theme installed / updated successfully."
 }
 
 install_icon_themes() {
