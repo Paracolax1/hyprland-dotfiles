@@ -85,10 +85,20 @@ readonly PACMAN_PACKAGES=(
     yazi                # TUI file manager
     zathura             # Document viewer
     zathura-pdf-mupdf   # PDF extension
+    imagemagick         # image something
+    bc
 
     #### FONTS
     ttf-jetbrains-mono-nerd
     ttf-material-symbols-variable
+
+
+    #### UNORGANISED
+    hypridle
+    hyprpolkitagent
+    udiskie
+    easyeffects
+
 
     # hyprland waybar wofi swaybg swww
     # pipewire pipewire-pulse pipewire-alsa wireplumber
@@ -120,7 +130,6 @@ readonly PACMAN_PACKAGES=(
 
 readonly AUR_PKGS=(
     qogir-icon-theme-git
-    material-gtk-theme
     swaync          # Sway notification center
     wallust-git     # Color palette maker
     vicinae-bin     # Application launcher
@@ -128,7 +137,10 @@ readonly AUR_PKGS=(
     eza             # Modern ls alternative
     thunar          # GUI file manager
     minizip         # Zips files
-    nerd-fonts-git  # Nerd fonts
+    nerd-fonts  # Nerd fonts
+
+    waytrogen
+    hyprswitch
 )
 
 TMP_BUILD_DIR=""
@@ -730,13 +742,13 @@ main() {
     install_icon_themes
     msg "Icon themes installed (Colloid icons)"
 
-    info "Installing fonts"
-    install_fonts
-    msg "Fonts installed"
-
     info "Cloning dotfiles repository"
     clone_or_update_dotfiles
     msg "Dotfiles repo cloned from ${DOTFILES_REPO}"
+
+    info "Installing fonts"
+    install_fonts
+    msg "Fonts installed"
 
     info "Installing Wallpapers"
     install_wallpapers
