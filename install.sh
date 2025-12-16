@@ -715,6 +715,31 @@ EOF
   info "Note: gtklock will NOT autostart. Trigger it via 'systemctl --user start gtklock'"
 }
 
+install_hypr_plugins() {
+    info "Installing hyprland plugins"
+    if ! hyprpm update; then
+        fatal "Hyprpm failed to install"
+    fi
+
+    local output, status
+    output=$(hyprpm add https://github.com/hyprwm/hyprland-plugins 2>&1)
+    status=$?
+
+    if [[ $status -eq 0 ]]; then
+        msg "Repo added successfully."
+    elif echo "$output" | grep -qi "already installed"; then
+        msg "Repo already installed, skipping."
+    else
+        fatal "Failed to install repo"
+    fi
+
+    if hyprpm enable hyprexpo; then
+        msg "Enabled hyprexpo plugin"
+    else
+        error "Failed to enable hyprexpo plugin"
+    fi
+}
+
 main() {
     info "Pre-flight system checks"
     check_not_root
@@ -768,11 +793,15 @@ main() {
 
     cp -f ~/.config/bash/bashrc ~/.bashrc
     source ~/.bashrc
-    hyprpm update
-    hyprpm add https://github.com/hyprwm/hyprland-plugins
-    hyprpm enable hyprexpo
+
+    info "Installing hyprland plugins"
+    install_hypr_plugins
+    msg "Installed hyprland plugins successfully"
+
+    info "Refreshing wallpaper and themes"
     waytrogen -r
     ~/.config/scripts/theme/theme-sync.sh
+    msg "Refreshed wallpaper and themes successfully"
 
     info "Dotfiles deployed successfully!"
 
