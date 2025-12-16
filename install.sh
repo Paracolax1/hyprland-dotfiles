@@ -721,7 +721,7 @@ install_hypr_plugins() {
         fatal "Hyprpm failed to install"
     fi
 
-    local output, status
+    local output status
     output=$(hyprpm add https://github.com/hyprwm/hyprland-plugins 2>&1)
     status=$?
 
