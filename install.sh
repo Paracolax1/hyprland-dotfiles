@@ -138,6 +138,7 @@ readonly AUR_PACKAGES=(
     thunar          # GUI file manager
     minizip         # Zips files
     nerd-fonts  # Nerd fonts
+    nerd-fonts-sf-mono
 
     waytrogen
     hyprswitch
