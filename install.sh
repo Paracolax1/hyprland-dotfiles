@@ -98,6 +98,8 @@ readonly PACMAN_PACKAGES=(
     hyprpolkitagent
     udiskie
     easyeffects
+    hyprpicker
+    thefuck
 
 
     # hyprland waybar wofi swaybg swww
@@ -142,6 +144,8 @@ readonly AUR_PACKAGES=(
 
     waytrogen
     hyprswitch
+    bongocat
+    wlogout
 )
 
 TMP_BUILD_DIR=""
@@ -759,6 +763,8 @@ main() {
     create_systemd_services
     enable_systemd_services
     msg "Systemd services configured"
+
+    cp -f ~/.config/bash/bashrc ~/.bashrc
 
     info "Dotfiles deployed successfully!"
 
