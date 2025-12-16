@@ -100,6 +100,8 @@ readonly PACMAN_PACKAGES=(
     easyeffects
     hyprpicker
     thefuck
+    cpio
+    cmake
 
 
     # hyprland waybar wofi swaybg swww
@@ -765,6 +767,8 @@ main() {
     msg "Systemd services configured"
 
     cp -f ~/.config/bash/bashrc ~/.bashrc
+    source ~/.bashrc
+    hyprpm update
     waytrogen -r
     ~/.config/scripts/theme/theme-sync.sh
 
