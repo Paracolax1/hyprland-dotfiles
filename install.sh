@@ -104,6 +104,11 @@ readonly PACMAN_PACKAGES=(
     cmake
     flatpak
     gnome-software
+    linux-headers
+    fuse2
+    gtkmm-4.0
+    pcsclite
+    libcanberra
 
 
     # hyprland waybar wofi swaybg swww
@@ -150,6 +155,9 @@ readonly AUR_PACKAGES=(
     bongocat
     wlogout
     visual-studio-code-bin
+    ncurses5-compat-libs
+    vmware-keymaps
+    vmware-workstation
 )
 
 readonly FLATPAK_APPS=(
