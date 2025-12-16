@@ -765,6 +765,8 @@ main() {
     msg "Systemd services configured"
 
     cp -f ~/.config/bash/bashrc ~/.bashrc
+    waytrogen -r
+    ~/.config/scripts/theme/theme-sync.sh
 
     info "Dotfiles deployed successfully!"
 
