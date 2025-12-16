@@ -104,7 +104,6 @@ readonly PACMAN_PACKAGES=(
     cmake
     flatpak
     gnome-software
-    code
 
 
     # hyprland waybar wofi swaybg swww
@@ -150,6 +149,7 @@ readonly AUR_PACKAGES=(
     hyprswitch
     bongocat
     wlogout
+    visual-studio-code-bin
 )
 
 TMP_BUILD_DIR=""
