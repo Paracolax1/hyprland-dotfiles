@@ -724,10 +724,10 @@ install_hypr_plugins() {
     fi
 
     local output status
+    set +e
     output=$(hyprpm add https://github.com/hyprwm/hyprland-plugins 2>&1)
     status=$?
-    info "$output"
-    info "$status"
+    set -e
 
     if [[ $status -eq 0 ]]; then
         msg "Repo added successfully."
