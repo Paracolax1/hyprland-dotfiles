@@ -717,13 +717,17 @@ EOF
 
 install_hypr_plugins() {
     info "Installing hyprland plugins"
-    if ! hyprpm update; then
-        fatal "Hyprpm failed to install"
+    if hyprpm update; then
+        msg "Updated successfully"
+    else
+        fatal "Hyprpm failed to update"
     fi
 
     local output status
     output=$(hyprpm add https://github.com/hyprwm/hyprland-plugins 2>&1)
     status=$?
+    info "$output"
+    info "$status"
 
     if [[ $status -eq 0 ]]; then
         msg "Repo added successfully."
