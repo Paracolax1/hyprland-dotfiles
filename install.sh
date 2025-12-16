@@ -47,7 +47,7 @@ readonly PACMAN_PACKAGES=(
 
     #### DESKTOP
     waybar  # Customizable taskbar
-    wofi    # Program launcher
+    # wofi    # Program launcher
     swww     # Wallpaper manager
     dunst   # Run custom scripts on notifications
     gtklock # Lockscreen
@@ -104,6 +104,7 @@ readonly PACMAN_PACKAGES=(
     cmake
     flatpak
     gnome-software
+    code
 
 
     # hyprland waybar wofi swaybg swww
@@ -149,7 +150,6 @@ readonly AUR_PACKAGES=(
     hyprswitch
     bongocat
     wlogout
-    vscodium
 )
 
 TMP_BUILD_DIR=""
@@ -760,7 +760,7 @@ configure_waytrogen() {
         fatal "Failed to make user applications folder"
     fi
 
-    cat > $"{config_path}/waytrogen.desktop" <<EOF
+    cat > "${config_path}/waytrogen.desktop" <<EOF
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
