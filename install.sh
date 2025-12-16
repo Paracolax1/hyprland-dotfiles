@@ -232,26 +232,27 @@ install_yay() {
         return 0
     fi
 
-    info "yay not in official repos, building from AUR..."
-    TMP_BUILD_DIR="($mktemp -d)"
+    local tmp_build_dir
 
-    if [[ ! -d "${TMP_BUILD_DIR}" ]]; then
+    info "yay not in official repos, building from AUR..."
+    tmp_build_dir="($mktemp -d)"
+
+    if [[ ! -d "${tmp_build_dir}" ]]; then
         fatal "Failed to create temporary directory for yay build"
     fi
 
     info "Cloning yay repository (this may take a moment)..."
-    if ! git clone --depth=1 https://aur.archlinux.org/yay-bin.git "${TMP_BUILD_DIR}"; then
+    if ! git clone --depth=1 https://aur.archlinux.org/yay-bin.git "${tmp_build_dir}"; then
         fatal "Failed to clone yay repository."
     fi
 
     info "Building yay package (this may take a few minutes)..."
-    if ! (cd "${TMP_BUILD_DIR}" && makepkg -si --noconfirm); then
+    if ! (cd "${tmp_build_dir}" && makepkg -si --noconfirm); then
         fatal "Failed to build and install yay."
     fi
 
     info "Cleaning up yay build directory..."
-    cleanup_temp_files
-    TMP_BUILD_DIR=""
+    rm -rf "${tmp_build_dir}"
 
     if verify_binary yay; then
         msg "yay installed successfully from AUR."
