@@ -733,6 +733,7 @@ install_hypr_plugins() {
         fatal "Failed to install repo"
     fi
 
+    info "Enabling plugins"
     if hyprpm enable hyprexpo; then
         msg "Enabled hyprexpo plugin"
     else
