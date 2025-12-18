@@ -112,6 +112,7 @@ readonly PACMAN_PACKAGES=(
     gnome-disk-utility
     docker
     docker-compose
+    go
 
 
     # hyprland waybar wofi swaybg swww
@@ -170,9 +171,9 @@ readonly FLATPAK_APPS=(
     com.spotify.Client
     com.obsproject.Studio
     org.videolan.VLC
-    com.valvesoftware.Steam
     org.audacityteam.Audacity
     org.mozilla.firefox
+    com.valvesoftware.Steam
 )
 
 TMP_BUILD_DIR=""
@@ -648,7 +649,7 @@ clone_or_update_dotfiles() {
     info "Updating git submodules..."
     cd "$DOTFILES_DIR"
     if git submodule update --init --recursive; then
-        msg "Submodules update"
+        msg "Submodules updated"
     else
         warn "Failed to update submodules. Continuing."
     fi
