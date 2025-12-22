@@ -81,7 +81,8 @@ readonly PACMAN_PACKAGES=(
     unzip               # Unzip cli tool
     pacman-contrib      # Contributed scripts to pacman
     fastfetch           # Terminal system info fetcher (shows info on new terminal)
-    bottom              # TUI system monitor
+    # bottom              # TUI system monitor
+    btop                # TUI system monitor
     yazi                # TUI file manager
     zathura             # Document viewer
     zathura-pdf-mupdf   # PDF extension
