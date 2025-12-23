@@ -115,7 +115,7 @@ readonly PACMAN_PACKAGES=(
     # docker-compose
     # go
 
-    ashai-desktop-meta
+    asahi-desktop-meta
     arch-install-scripts
     hyprgraphics
 
