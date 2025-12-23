@@ -64,7 +64,7 @@ readonly PACMAN_PACKAGES=(
     wireplumber     # Modular session/policy manager for PipeWire
     pipewire-pulse  # PulseAudio compatbility
     pipewire-alsa   # ALSA compatibility
-    pipewire-jack   # Jack compatibility
+    # pipewire-jack   # Jack compatibility
     pipewire-audio
     # Advanced Linux Sound Architecture
     alsa-tools      # ALSA tools for certain cards
@@ -119,6 +119,7 @@ readonly PACMAN_PACKAGES=(
     man-db          # Manual pages
     evtest          # Debug input devices (shows raw kernel events)
     iotop           # I/O monitoring
+    eza
 
 
     #### APPS
@@ -157,8 +158,8 @@ readonly AUR_PACKAGES=(
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
 
-    hyprshutdown-git # Graceful shutdown utility
-    hyprsysteminfo-git # System information display
+    hyprshutdown # Graceful shutdown utility
+    hyprsysteminfo # System information display
 
     # waytrogen
     # hyprswitch
@@ -721,8 +722,8 @@ create_systemd_services() {
 
 enable_systemd_services() {
     info "Enabling systemd services"
-    # systemctl --user enable --now pipewire pipewire-pulse wireplumber
-    # sudo systemctl enable --now bluetooth
+    systemctl --user enable --now pipewire pipewire-pulse wireplumber
+    sudo systemctl enable --now bluetooth
 
     msg "Systemd services enabled"
 }
@@ -761,11 +762,17 @@ install_hypr_plugins() {
         fatal "Hyprpm failed to update"
     fi
 
-    local output status
+    local output status tmpfile
+    tmpfile=$(mktemp)
+
     set +e
-    output=$(hyprpm add https://github.com/hyprwm/hyprland-plugins 2>&1)
-    status=$?
+    hyprpm add https://github.com/hyprwm/hyprland-plugins -f \
+    |& tee "$tmpfile"
+    status=${PIPESTATUS[0]}
     set -e
+
+    output=$(<"$tmpfile")
+    rm -f "$tmpfile"
 
     if [[ $status -eq 0 ]]; then
         msg "Repo added successfully."
@@ -773,7 +780,7 @@ install_hypr_plugins() {
         msg "Repo already installed, skipping."
     else
         fatal "Failed to install repo"
-    fi
+fi
 
     info "Enabling plugins"
     if hyprpm enable hyprexpo; then
