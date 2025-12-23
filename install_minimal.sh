@@ -153,7 +153,7 @@ readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     # swaync          # Sway notification center
     # wallust-git     # Color palette maker
-    vicinae     # Application launcher
+    # vicinae     # Application launcher
     # dust            # CLI disk usage overview
     # thunar          # GUI file manager
     # minizip         # Zips files
