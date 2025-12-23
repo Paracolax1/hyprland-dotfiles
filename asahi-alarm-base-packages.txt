@@ -1,0 +1,38 @@
+pacman:
+asahi-desktop-meta - double check this stuff
+arch-install-scripts - (arch-chroot, genfstab etc)
+pacman-contrib - useful scripts, e.g. checkupdates
+strace - debug util
+powertop - intel tool for powersaving/energy monitoring
+man-db - manual pages
+alsa-tools - Advanced Linux Sound Architecture
+alsa-utils
+evtest - debug input devices (shows raw kernel events)
+iotop - top for I/O
+mesa - drivers
+mesa-utils - cli tools for mesa
+glmark2 - OpenGL benchmarking tool
+hyprland - tiling compositor
+hyprcursor - cursor theme format
+hyprgraphics - utilities related to graphics, e.g. load image, color calc
+hypridle - idle management daemon
+hyprland-protocols - Wayland protocol extensions for Hyprland (bridges features in KDE/Gnome)
+hyprland-qt-support - QML style for hypr qt6 apps
+hyprland-guiutils - qt/qml utilities
+hyprlang - parsing for hypr config language (like a json cli tool)
+hyprlock - Screen lock
+(USE SWWW) hyprpaper - wallpaper utility
+hyprpicker - pick colour on Screen
+hyprpolkitagent - polkit authentication daemon
+hyprsunset - provides blue light filter
+hyprutils - implementation of commonly used types??
+uwsm - Binds compositors to systemd units for clean management (e.g. shutdown)
+pipewire - multimedia server/engine
+pipewire-jack - jack compatibility layer
+pipewire-pulse - pulse compatibility layer
+pipewire-alsa - alsa compatibility layer
+pavucontrol - GUI tool for managing audio
+wireplumber - session/policy manager for pipewire
+
+(LATER) sddm - Login manager
+(MAYBE) nwg-panel - top bar controls
