@@ -101,8 +101,8 @@ readonly PACMAN_PACKAGES=(
     # easyeffects
     # hyprpicker
     # thefuck
-    # cpio
-    # cmake
+    cpio
+    cmake
     # flatpak
     # gnome-software
     # linux-headers
