@@ -103,7 +103,7 @@ readonly PACMAN_PACKAGES=(
     # thefuck
     cpio
     cmake
-    # flatpak
+    flatpak
     # gnome-software
     # linux-headers
     # fuse2
@@ -894,7 +894,7 @@ main() {
     msg "Installed flatpak apps successfully"
 
     info "Refreshing wallpaper and themes"
-    waytrogen -r
+    # waytrogen -r
     ~/.config/scripts/theme/theme-sync.sh
     msg "Refreshed wallpaper and themes successfully"
 
