@@ -152,20 +152,20 @@ readonly PACMAN_PACKAGES=(
 readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     # swaync          # Sway notification center
-    wallust-git     # Color palette maker
-    vicinae-bin     # Application launcher
+    # wallust-git     # Color palette maker
+    vicinae     # Application launcher
     # dust            # CLI disk usage overview
     # thunar          # GUI file manager
     # minizip         # Zips files
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
 
-    waytrogen
+    # waytrogen
     # hyprswitch
     # bongocat
     # wlogout
     # visual-studio-code-bin
-    ncurses5-compat-libs
+    # ncurses5-compat-libs
     # mware-keymaps
     # vmware-workstation
 )
