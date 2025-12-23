@@ -66,7 +66,7 @@ readonly PACMAN_PACKAGES=(
     pipewire-alsa   # ALSA compatibility
     pipewire-jack   # Jack compatibility
     pipewire-audio
-    alsa            # Advanced Linux Sound Architecture
+    # Advanced Linux Sound Architecture
     alsa-tools      # ALSA tools for certain cards
     alsa-utils      # CLI tools for controlling alsa
 
@@ -82,8 +82,6 @@ readonly PACMAN_PACKAGES=(
     gtklock         # Lockscreen
     # hyprlock (COME BACK TO THIS)
     alacritty       # Terminal Emulator
-    hyprshutdown    # Graceful shutdown utility
-    hyprsysteminfo  # System information display
     hyprpwcenter    # Control for pipewire
     hyprsunset      # Blue light filter
     pavucontrol     # Audio control GUI (MAYBE REDUNDANT)
@@ -158,6 +156,9 @@ readonly AUR_PACKAGES=(
     # minizip         # Zips files
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
+
+    hyprshutdown-git # Graceful shutdown utility
+    hyprsysteminfo-git # System information display
 
     # waytrogen
     # hyprswitch
