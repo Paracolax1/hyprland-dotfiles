@@ -159,8 +159,8 @@ readonly AUR_PACKAGES=(
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
     
-    hyprshutdown # Graceful shutdown utility
-    hyprsysteminfo # System information display
+    # hyprshutdown # Graceful shutdown utility
+    # hyprsysteminfo # System information display
     
     # waytrogen
     hyprswitch
