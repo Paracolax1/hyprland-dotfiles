@@ -11,6 +11,7 @@ set -euo pipefail
 
 ### CONFIGURATION
 readonly DOTFILES_REPO="https://github.com/Paracolax1/hyprland-dotfiles.git"
+readonly DOTFILES_BRANCH="aarch64"
 readonly DOTFILES_DIR="$HOME/.local/share/hyprland-dotfiles"
 readonly CONFIG_DIR="$HOME/.config"
 
@@ -624,7 +625,7 @@ install_fonts() {
 
 clone_dotfiles() {
     info "Cloning dotfiles repo"
-    if ! git clone --depth=1 "$DOTFILES_REPO" "$DOTFILES_DIR"; then
+    if ! git clone --branch "$DOTFILES_BRANCH" --single-branch --depth=1 "$DOTFILES_REPO" "$DOTFILES_DIR"; then
         fatal "Failed to clone dotfiles repository."
     fi
     
