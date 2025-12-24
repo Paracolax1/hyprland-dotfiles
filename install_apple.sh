@@ -151,7 +151,7 @@ readonly PACMAN_PACKAGES=(
 readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     swaync          # Sway notification center
-    wallust-git     # Color palette maker
+    # wallust-git     # Color palette maker
     # vicinae     # Application launcher
     dust            # CLI disk usage overview
     thunar          # GUI file manager
