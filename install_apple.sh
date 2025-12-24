@@ -129,6 +129,7 @@ readonly PACMAN_PACKAGES=(
     gnome-software      # Flatpak application store
     gnome-disk-utility  # GUI Diskutil
     glmark2             # OpenGL benchmarking tool
+    steam               # Game/software platform
     
     
     #### LIBRARIES
@@ -149,12 +150,12 @@ readonly PACMAN_PACKAGES=(
 
 readonly AUR_PACKAGES=(
     qogir-icon-theme-git
-    # swaync          # Sway notification center
-    # wallust-git     # Color palette maker
+    swaync          # Sway notification center
+    wallust-git     # Color palette maker
     # vicinae     # Application launcher
-    # dust            # CLI disk usage overview
-    # thunar          # GUI file manager
-    # minizip         # Zips files
+    dust            # CLI disk usage overview
+    thunar          # GUI file manager
+    minizip         # Zips files
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
     
@@ -162,8 +163,8 @@ readonly AUR_PACKAGES=(
     hyprsysteminfo # System information display
     
     # waytrogen
-    # hyprswitch
-    # bongocat
+    hyprswitch
+    bongocat
     # wlogout
     # visual-studio-code-bin
     # ncurses5-compat-libs
@@ -833,6 +834,17 @@ install_flatpak_apps() {
     msg "Installed all Flatpak apps"
 }
 
+configure_bongocat() {
+    info "Configuring bongocat"
+    sudo groupadd input
+    sudo usermod -aG input $USER
+    sudo cat > "/etc/udev/rules.d/99-input.rules" <<EOF
+SUBSYSTEM=="input", GROUP="input", MODE="660"
+EOF
+    sudo udevadm control --reload
+    sudo udevadm trigger
+    msg "Configured bongocat"
+}
 
 main() {
     info "Pre-flight system checks"
