@@ -146,6 +146,11 @@ readonly PACMAN_PACKAGES=(
     #### FONTS/THEMES
     ttf-jetbrains-mono-nerd
     ttf-material-symbols-variable
+    noto-fonts
+    noto-fonts-extra
+    noto-fonts-emoji
+    ttf-liberation
+    ttf-liberation-mono-nerd
     hyprcursor
 )
 
@@ -159,6 +164,7 @@ readonly AUR_PACKAGES=(
     minizip         # Zips files
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
+    ttf-ms-fonts
     
     # hyprshutdown # Graceful shutdown utility
     # hyprsysteminfo # System information display
